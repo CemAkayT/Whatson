@@ -1,9 +1,9 @@
-package jon.whatson.service;
+package jon.whatson.userservice;
 
 import jon.whatson.model.User;
 import jon.whatson.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -17,7 +17,7 @@ public class UserService implements IUserService{
 
     @Override
     public Set<User> findAll() {
-        return null;
+        return new HashSet<>(userRepository.findAll());
     }
 
     @Override
@@ -26,12 +26,23 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public void delete(User object) {
+    public boolean existsById(Long aLong) {
+        boolean found = false;
+        if (!userRepository.existsById(aLong)){
+            return found;
+        } else {
+            return !found;
+        }
+    }
 
+    @Override
+    public void delete(User object) {
+        userRepository.delete(object);
     }
 
     @Override
     public void deleteById(Long aLong) {
+        userRepository.deleteById(aLong);
 
     }
 
@@ -39,4 +50,5 @@ public class UserService implements IUserService{
     public Optional<User> findById(Long aLong) {
         return Optional.empty();
     }
+
 }

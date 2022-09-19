@@ -1,4 +1,4 @@
-package jon.whatson;
+package jon.whatson.userservice;
 
 import java.util.Optional;
 import java.util.Set;

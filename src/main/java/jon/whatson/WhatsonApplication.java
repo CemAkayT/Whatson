@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class WhatsonApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(WhatsonApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(WhatsonApplication.class, args);
+    }
 
 }

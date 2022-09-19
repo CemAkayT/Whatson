@@ -1,4 +1,4 @@
-package jon.whatson;
+package jon.whatson.model;
 import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
