@@ -3,9 +3,8 @@ package jon.whatson.userservice;
 import jon.whatson.model.User;
 import jon.whatson.repository.UserRepository;
 import org.springframework.stereotype.Service;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+
+import java.util.*;
 
 @Service  // gør at Spring "ser" denne klasse
 public class UserService implements IUserService{
@@ -16,8 +15,8 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public Set<User> findAll() {
-        return new HashSet<>(userRepository.findAll());
+    public List<User> findAll() {
+        return new ArrayList<>(userRepository.findAll());
     }
 
     @Override
@@ -48,7 +47,7 @@ public class UserService implements IUserService{
 
     @Override
     public Optional<User> findById(Long aLong) {
-        return Optional.empty();
+        return userRepository.findById(aLong);
     }
 
 }

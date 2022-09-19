@@ -5,7 +5,7 @@ import jon.whatson.userservice.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.Set;
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -18,12 +18,14 @@ public class UserController {
 
     @PostMapping("/createUser")
     public ResponseEntity<String> create(@RequestBody User user) {
-        Set<User> userSet = iUserService.findAll();
-            if (!userSet.contains(user)) {
-                iUserService.save(user);
-                return new ResponseEntity<>("New User created:", HttpStatus.OK);
+        List<User> userList = iUserService.findAll();
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getName().equalsIgnoreCase(user.getName())) {
+                return new ResponseEntity<>(user.getName() + " already exists", HttpStatus.OK);
             }
-        return new ResponseEntity<>("User already exists:", HttpStatus.OK);
+        }
+        iUserService.save(user);
+        return new ResponseEntity<>("New User :\"" + user.getName() + "\" created", HttpStatus.OK);
     }
 
     @GetMapping("/fetchAllUsers")
@@ -46,13 +48,23 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/deleteUserByID")
+    @DeleteMapping("/deleteUserById")
     public ResponseEntity<String> delete(@RequestParam Long id) {
         if (!iUserService.existsById(id)) {
             return new ResponseEntity<>("User not found:", HttpStatus.OK);
         } else {
             iUserService.deleteById(id);
             return new ResponseEntity<>("User deleted:", HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/existsUserById")
+    public boolean existsByid(@RequestParam Long id){
+        boolean found = false;
+        if (!iUserService.existsById(id)){
+            return found;
+        } else{
+            return !found;
         }
     }
 }

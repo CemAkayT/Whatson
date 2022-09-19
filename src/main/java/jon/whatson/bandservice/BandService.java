@@ -4,11 +4,10 @@ import jon.whatson.model.Band;
 import jon.whatson.repository.BandRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
-public class BandService implements IBandService{
+public class BandService implements IBandService {
     private BandRepository bandRepository;
 
     public BandService(BandRepository bandRepository) {
@@ -17,8 +16,8 @@ public class BandService implements IBandService{
 
 
     @Override
-    public Set<Band> findAll() {
-        return null;
+    public List<Band> findAll() {
+        return new ArrayList<>(bandRepository.findAll());
     }
 
     @Override
@@ -28,17 +27,23 @@ public class BandService implements IBandService{
 
     @Override
     public boolean existsById(Long aLong) {
-        return false;
+        boolean found = false;
+        if (!bandRepository.existsById(aLong)) {
+            return found;
+        } else {
+            return !found;
+        }
     }
 
     @Override
     public void delete(Band object) {
+        bandRepository.delete(object);
 
     }
 
     @Override
     public void deleteById(Long aLong) {
-
+        bandRepository.deleteById(aLong);
     }
 
     @Override

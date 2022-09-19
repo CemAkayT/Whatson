@@ -4,6 +4,7 @@ import jon.whatson.model.Event;
 import jon.whatson.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -16,7 +17,7 @@ public class EventService implements IEventService {
     }
 
     @Override
-    public Set<Event> findAll() {
+    public List<Event> findAll() {
         return null;
     }
 

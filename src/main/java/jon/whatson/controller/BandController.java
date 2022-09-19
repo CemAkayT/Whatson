@@ -4,12 +4,9 @@ import jon.whatson.bandservice.IBandService;
 import jon.whatson.model.Band;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-import java.util.Set;
 
 @RestController
 public class BandController {
@@ -20,35 +17,56 @@ public class BandController {
         this.iBandService = bandService;
     }
 
-    /* @PostMapping("/createBand")
-     public ResponseEntity<String> createBand(@RequestBody Band band){
-         String msg="";
-         if(iBandService.save(band)!=null) {
-             msg="Oprettet band: "+band.getName();
-         }else {
-             msg="fejl i oprettelse af " + band.getName();
-         }
-         return new ResponseEntity<>(msg, HttpStatus.OK);
-     }
- */
     @PostMapping("/createBand")
-    public ResponseEntity<Set<Band>> createBand(@RequestBody Band band) {
-        Set<Band> bandSet = iBandService.findAll();
-        if (!bandSet.contains(band)) {
-            iBandService.save(band);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
+    public ResponseEntity<String> create(@RequestBody Band band) {
+        List<Band> bandList = iBandService.findAll();
+        for (Band value : bandList) {
+            if (value.getName().equalsIgnoreCase(band.getName())) {
+                return new ResponseEntity<>(band.getName() + " already exist", HttpStatus.OK);
+            }
         }
+        iBandService.save(band);
+        return new ResponseEntity<>("New Band: " + band.getName() + " created", HttpStatus.OK);
     }
 
     @GetMapping("/fetchAllBands")
-    public ResponseEntity<String> read(){
-        if (!iBandService.findAll().isEmpty()){
-            return new ResponseEntity<>("Bands: " + iBandService.findAll(),HttpStatus.OK);
-        } else{
+    public ResponseEntity<String> read() {
+        if (!iBandService.findAll().isEmpty()) {
+            return new ResponseEntity<>("Bands: " + iBandService.findAll(), HttpStatus.OK);
+        } else {
             return new ResponseEntity<>("Table is empty!", HttpStatus.OK);
         }
+    }
 
+    @PutMapping("/updateBand")
+    public ResponseEntity<String> update(Long id, @RequestBody Band band) {
+        if (iBandService.existsById(id)) {
+            band.setId(id);
+            iBandService.save(band);
+            return new ResponseEntity<>("Band updated:", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Band not found:", HttpStatus.OK);
+        }
+    }
+
+    @DeleteMapping("/deleteBandById")
+    public ResponseEntity<String> delete(@RequestParam Long id) {
+        if (!iBandService.existsById(id)) {
+            return new ResponseEntity<>("User not found:", HttpStatus.OK);
+        } else {
+            iBandService.deleteById(id);
+            return new ResponseEntity<>("User deleted:", HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/existsBandById")
+    public boolean existsByid(@RequestParam Long id){
+        boolean found = false;
+        if (!iBandService.existsById(id)){
+            return found;
+        } else{
+            return !found;
+        }
     }
 }
+
