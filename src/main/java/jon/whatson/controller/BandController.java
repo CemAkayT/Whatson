@@ -68,7 +68,7 @@ public class BandController {
             return !found;
         }
     }
-    @GetMapping("/getBandByName")
+    @GetMapping("/getBandByName") // look in repo
     public ResponseEntity<List<Band>> getBandByName(String name){
         return new ResponseEntity<>(iBandService.findBandByName(name), HttpStatus.OK);
     }
