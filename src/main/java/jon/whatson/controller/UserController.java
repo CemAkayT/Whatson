@@ -34,11 +34,11 @@ public class UserController {
     }
 
     @GetMapping("/fetchAllUsers")
-    public ResponseEntity<String> read() {
+    public ResponseEntity<List<User>> read() {
         if (!iUserService.findAll().isEmpty()) {
-            return new ResponseEntity<>("Users: " + iUserService.findAll(), HttpStatus.OK);
+            return new ResponseEntity<>(iUserService.findAll(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Table is empty!", HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.OK);
         }
     }
 
