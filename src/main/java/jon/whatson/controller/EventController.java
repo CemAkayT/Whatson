@@ -55,6 +55,18 @@ public class EventController {
         }
     }
 
+    @DeleteMapping("/deleteEventById")
+    public ResponseEntity<String> delete(Long id){
+        if(!iEventService.existsById(id)){
+            return new ResponseEntity<>("Event not found:", HttpStatus.OK);
+        } else{
+            iEventService.deleteById(id);
+            return new ResponseEntity<>("Event deleted:", HttpStatus.OK);
+
+        }
+
+    }
+
 }
 
 
