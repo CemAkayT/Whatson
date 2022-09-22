@@ -44,6 +44,17 @@ public class EventController {
         return new ResponseEntity<>(null,HttpStatus.OK);
     }
 
+    @PutMapping("/updateEvent")
+    public ResponseEntity<String> update(Long id, @RequestBody Event event) {
+        if (iEventService.existsById(id)) {
+            event.setId(id);
+            iEventService.save(event);
+            return new ResponseEntity<>("Event updated:", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Event not found:", HttpStatus.OK);
+        }
+    }
+
 }
 
 
