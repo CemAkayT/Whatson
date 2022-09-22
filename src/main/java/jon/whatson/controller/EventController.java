@@ -6,11 +6,9 @@ import jon.whatson.model.Band;
 import jon.whatson.model.Event;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -36,6 +34,14 @@ public class EventController {
             return new ResponseEntity<>("Could not create", HttpStatus.OK);
         }
 
+    }
+
+    @GetMapping("/fetchAllEvents")
+    public ResponseEntity <List<Event>> read(){
+        if (!iEventService.findAll().isEmpty()){
+            return new ResponseEntity<>(iEventService.findAll(),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null,HttpStatus.OK);
     }
 
 }
