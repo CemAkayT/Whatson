@@ -1,7 +1,9 @@
-package jon.whatson.bandservice;
+package jon.whatson.iservice;
 
 import jon.whatson.model.Band;
-import jon.whatson.userservice.ICrudService;
+
+import java.util.List;
 
 public interface IBandService  extends ICrudService<Band,Long> {
+    List<Band> findBandByName(String name);
 }

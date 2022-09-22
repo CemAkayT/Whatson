@@ -1,6 +1,6 @@
 package jon.whatson.controller;
 
-import jon.whatson.bandservice.IBandService;
+import jon.whatson.iservice.IBandService;
 import jon.whatson.model.Band;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,11 +30,11 @@ public class BandController {
     }
 
     @GetMapping("/fetchAllBands")
-    public ResponseEntity<String> read() {
+    public ResponseEntity<List<Band>> read() {
         if (!iBandService.findAll().isEmpty()) {
-            return new ResponseEntity<>("Bands: " + iBandService.findAll(), HttpStatus.OK);
+            return new ResponseEntity<>( iBandService.findAll(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Table is empty!", HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.OK);
         }
     }
 
@@ -67,6 +67,10 @@ public class BandController {
         } else{
             return !found;
         }
+    }
+    @GetMapping("/getBandByName")
+    public ResponseEntity<List<Band>> getBandByName(String name){
+        return new ResponseEntity<>(iBandService.findBandByName(name), HttpStatus.OK);
     }
 }
 

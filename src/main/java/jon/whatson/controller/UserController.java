@@ -1,19 +1,24 @@
 package jon.whatson.controller;
 
+import jon.whatson.iservice.IUserService;
+import jon.whatson.iservice.IVenueService;
 import jon.whatson.model.User;
-import jon.whatson.userservice.IUserService;
+import jon.whatson.model.Venue;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
 
     private final IUserService iUserService;
+    private final IVenueService venueService;
 
-    public UserController(IUserService iUserService) {
+    public UserController(IUserService iUserService, IVenueService venueService) {
         this.iUserService = iUserService;
+        this.venueService = venueService;
     }
 
     @PostMapping("/createUser")
@@ -66,5 +71,23 @@ public class UserController {
         } else{
             return !found;
         }
+    }
+
+    @GetMapping("/getUserByName")
+    public ResponseEntity<List<User>> getUserByName(String name){
+        return new ResponseEntity<>(iUserService.findUserByName(name), HttpStatus.OK);
+    }
+    @PostMapping("/createLike")
+    public ResponseEntity<String> createLike(@RequestParam Long userID, @RequestParam Long venueID){
+        Optional<User> user_ = iUserService.findById(userID);
+        Optional<Venue> venue_ = venueService.findById(venueID);
+
+        if (user_.isPresent() && venue_.isPresent()){
+            user_.get().getVenuesLiked().add(venue_.get());
+            iUserService.save(user_.get());
+
+            return new ResponseEntity<>("Like oprettet", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Ikke oprettet", HttpStatus.OK);
     }
 }

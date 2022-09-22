@@ -1,13 +1,13 @@
-package jon.whatson.userservice;
+package jon.whatson.service;
 
+import jon.whatson.iservice.IUserService;
 import jon.whatson.model.User;
 import jon.whatson.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 
 @Service  // gør at Spring "ser" denne klasse
-public class UserService implements IUserService{
+public class UserService implements IUserService {
     private UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -48,6 +48,11 @@ public class UserService implements IUserService{
     @Override
     public Optional<User> findById(Long aLong) {
         return userRepository.findById(aLong);
+    }
+
+    @Override
+    public List<User> findUserByName(String name) {
+        return userRepository.findUserByName(name);
     }
 
 }

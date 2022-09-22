@@ -1,5 +1,6 @@
-package jon.whatson.bandservice;
+package jon.whatson.service;
 
+import jon.whatson.iservice.IBandService;
 import jon.whatson.model.Band;
 import jon.whatson.repository.BandRepository;
 import org.springframework.stereotype.Service;
@@ -49,5 +50,10 @@ public class BandService implements IBandService {
     @Override
     public Optional<Band> findById(Long aLong) {
         return bandRepository.findById(aLong);
+    }
+
+    @Override
+    public List<Band> findBandByName(String name) {
+        return bandRepository.findBandByName(name);
     }
 }

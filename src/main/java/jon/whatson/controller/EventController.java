@@ -1,7 +1,7 @@
 package jon.whatson.controller;
 
-import jon.whatson.bandservice.IBandService;
-import jon.whatson.eventservice.IEventService;
+import jon.whatson.iservice.IBandService;
+import jon.whatson.iservice.IEventService;
 import jon.whatson.model.Band;
 import jon.whatson.model.Event;
 import org.springframework.http.HttpStatus;
@@ -26,13 +26,13 @@ public class EventController {
     }
 
     @PostMapping("/createEvent")
-    public ResponseEntity<String> createEvent(@RequestBody Event event, @RequestParam Long bandID)     {
-        Optional<Band>  band_ = iBandService.findById(bandID);
-        if (band_.isPresent()){
+    public ResponseEntity<String> createEvent(@RequestBody Event event, @RequestParam Long bandID) {
+        Optional<Band> band_ = iBandService.findById(bandID);
+        if (band_.isPresent()) {
             event.setBand(band_.get());
             iEventService.save(event);
             return new ResponseEntity<>("OK", HttpStatus.OK);
-        }else{
+        } else {
             return new ResponseEntity<>("Could not create", HttpStatus.OK);
         }
 

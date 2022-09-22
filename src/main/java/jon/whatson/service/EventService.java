@@ -1,12 +1,11 @@
-package jon.whatson.eventservice;
+package jon.whatson.service;
 
+import jon.whatson.iservice.IEventService;
 import jon.whatson.model.Event;
 import jon.whatson.repository.EventRepository;
 import org.springframework.stereotype.Service;
+import java.util.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class EventService implements IEventService {
@@ -18,7 +17,7 @@ public class EventService implements IEventService {
 
     @Override
     public List<Event> findAll() {
-        return null;
+        return new ArrayList<>(eventRepository.findAll());
     }
 
     @Override
@@ -28,17 +27,22 @@ public class EventService implements IEventService {
 
     @Override
     public boolean existsById(Long aLong) {
-        return false;
+        boolean found = false;
+        if (!eventRepository.existsById(aLong)) {
+            return found;
+        } else {
+            return !found;
+        }
     }
 
     @Override
     public void delete(Event object) {
-
+        eventRepository.delete(object);
     }
 
     @Override
     public void deleteById(Long aLong) {
-
+        eventRepository.deleteById(aLong);
     }
 
     @Override
