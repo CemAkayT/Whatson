@@ -77,6 +77,8 @@ public class UserController {
     public ResponseEntity<List<User>> getUserByName(String name){
         return new ResponseEntity<>(iUserService.findUserByName(name), HttpStatus.OK);
     }
+
+
     @PostMapping("/createLike")
     public ResponseEntity<String> createLike(@RequestParam Long userID, @RequestParam Long venueID){
         Optional<User> user_ = iUserService.findById(userID);
