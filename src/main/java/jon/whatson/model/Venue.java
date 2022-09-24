@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -20,5 +22,5 @@ public class Venue {
 
     @ManyToMany (mappedBy = "venuesLiked")
     @JsonBackReference
-    private Set<User> userLikes = new HashSet<>();
+    private List<User> userLikes = new ArrayList<>();
 }

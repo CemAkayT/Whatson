@@ -14,11 +14,11 @@ import java.util.Optional;
 public class UserController {
 
     private final IUserService iUserService;
-    private final IVenueService venueService;
+    private final IVenueService iVenueService;
 
-    public UserController(IUserService iUserService, IVenueService venueService) {
+    public UserController(IUserService iUserService, IVenueService iVenueService) {
         this.iUserService = iUserService;
-        this.venueService = venueService;
+        this.iVenueService = iVenueService;
     }
 
     @PostMapping("/createUser")
@@ -82,7 +82,7 @@ public class UserController {
     @PostMapping("/createLike")
     public ResponseEntity<String> createLike(@RequestParam Long userID, @RequestParam Long venueID){
         Optional<User> user_ = iUserService.findById(userID);
-        Optional<Venue> venue_ = venueService.findById(venueID);
+        Optional<Venue> venue_ = iVenueService.findById(venueID);
 
         if (user_.isPresent() && venue_.isPresent()){
             user_.get().getVenuesLiked().add(venue_.get());

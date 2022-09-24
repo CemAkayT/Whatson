@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -15,11 +17,15 @@ public class Event {
     private Long id;
     private String venue;
     private Timestamp timestamp;
-    // Date kommer
+
 
     @ManyToOne // allows you to map FK in the child entity so it can reference its parent entity
     @JsonBackReference
     private Band band;
+
+    @OneToMany (mappedBy = "event")
+    private List<Review> reviews = new ArrayList<>();
+
 
 
 }

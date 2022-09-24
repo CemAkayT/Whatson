@@ -16,7 +16,6 @@ public class Band { // er på turné derfor 1-to-many
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     String name;
 
 

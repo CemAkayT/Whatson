@@ -7,7 +7,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -28,5 +30,9 @@ public class User {
     )
     @JsonBackReference
     private Set<Venue> venuesLiked = new HashSet<>();
+
+    @OneToMany (mappedBy = "event")
+    private List<Review> reviews = new ArrayList<>();
+
 
 }

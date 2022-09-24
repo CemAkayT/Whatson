@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 @RestController
@@ -29,7 +30,7 @@ public class EventController {
         if (band_.isPresent()) {
             event.setBand(band_.get());
             iEventService.save(event);
-            return new ResponseEntity<>("OK", HttpStatus.OK);
+            return new ResponseEntity<>("Event saved: ", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Could not create", HttpStatus.OK);
         }
