@@ -23,7 +23,7 @@ public class BandController {
         List<Band> bandList = iBandService.findAll();
         for (Band value : bandList) {
             if (value.getName().equalsIgnoreCase(band.getName())) {
-                return new ResponseEntity<>(band.getName() + " already exist", HttpStatus.OK);
+                return new ResponseEntity<>(band.getName() + " already exist!", HttpStatus.OK);
             }
         }
         iBandService.save(band);
@@ -53,10 +53,10 @@ public class BandController {
     @DeleteMapping("/deleteBandById")
     public ResponseEntity<String> delete(@RequestParam Long id) {
         if (!iBandService.existsById(id)) {
-            return new ResponseEntity<>("User not found:", HttpStatus.OK);
+            return new ResponseEntity<>("Band not found:", HttpStatus.OK);
         } else {
             iBandService.deleteById(id);
-            return new ResponseEntity<>("User deleted:", HttpStatus.OK);
+            return new ResponseEntity<>("Band deleted:", HttpStatus.OK);
         }
     }
 

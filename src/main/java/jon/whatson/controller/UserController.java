@@ -26,7 +26,7 @@ public class UserController {
         List<User> userList = iUserService.findAll();
         for (int i = 0; i < userList.size(); i++) {
             if (userList.get(i).getName().equalsIgnoreCase(user.getName())) {
-                return new ResponseEntity<>(user.getName() + " already exists", HttpStatus.OK);
+                return new ResponseEntity<>(user.getName() + " already exists!", HttpStatus.OK);
             }
         }
         iUserService.save(user);

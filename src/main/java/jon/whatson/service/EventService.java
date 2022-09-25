@@ -49,4 +49,6 @@ public class EventService implements IEventService {
     public List<Event> findByOrderByTimestampAsc() {
         return eventRepository.findByOrderByTimestampAsc();
     }
+
+
 }
