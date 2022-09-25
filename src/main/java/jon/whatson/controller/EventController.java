@@ -7,11 +7,9 @@ import jon.whatson.model.Event;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+
 
 
 @RestController
@@ -70,7 +68,7 @@ public class EventController {
 
     @GetMapping("/getEvents")
     public ResponseEntity<List<Event>> getEvents(){
-        return new ResponseEntity<>(iEventService.findByOrderByTimestampAsc(),HttpStatus.OK);
+        return new ResponseEntity<>(iEventService.findByOrderByTimestampAsc(),HttpStatus.ACCEPTED);
     }
 
 }
