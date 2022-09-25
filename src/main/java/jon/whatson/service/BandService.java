@@ -37,12 +37,6 @@ public class BandService implements IBandService {
     }
 
     @Override
-    public void delete(Band object) {
-        bandRepository.delete(object);
-
-    }
-
-    @Override
     public void deleteById(Long aLong) {
         bandRepository.deleteById(aLong);
     }

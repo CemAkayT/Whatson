@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -32,7 +33,7 @@ public class EventController {
             iEventService.save(event);
             return new ResponseEntity<>("Event saved: ", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Could not create", HttpStatus.OK);
+            return new ResponseEntity<>("Could not save event", HttpStatus.OK);
         }
 
     }
@@ -65,7 +66,11 @@ public class EventController {
             return new ResponseEntity<>("Event deleted:", HttpStatus.OK);
 
         }
+    }
 
+    @GetMapping("/getEvents")
+    public ResponseEntity<List<Event>> getEvents(){
+        return new ResponseEntity<>(iEventService.findByOrderByTimestampAsc(),HttpStatus.OK);
     }
 
 }

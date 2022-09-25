@@ -36,11 +36,6 @@ public class EventService implements IEventService {
     }
 
     @Override
-    public void delete(Event object) {
-        eventRepository.delete(object);
-    }
-
-    @Override
     public void deleteById(Long aLong) {
         eventRepository.deleteById(aLong);
     }
@@ -48,5 +43,10 @@ public class EventService implements IEventService {
     @Override
     public Optional<Event> findById(Long aLong) {
         return eventRepository.findById(aLong);
+    }
+
+    @Override
+    public List<Event> findByOrderByTimestampAsc() {
+        return eventRepository.findByOrderByTimestampAsc();
     }
 }

@@ -33,11 +33,6 @@ public class VenueService implements IVenueService {
     }
 
     @Override
-    public void delete(Venue object) {
-
-    }
-
-    @Override
     public void deleteById(Long aLong) {
 
     }

@@ -17,10 +17,12 @@ public class Venue {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "venue_id")
     private Long id;
+    @Column(name= "venue_name")
     private String name;
 
     @ManyToMany (mappedBy = "venuesLiked")
-    @JsonBackReference
+    @JsonBackReference (value = "userlikes-movement")
     private List<User> userLikes = new ArrayList<>();
 }

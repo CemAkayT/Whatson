@@ -18,7 +18,9 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "user_id")
     private Long id;
+    @Column(name= "user_name")
     private String name;
 
 
@@ -28,7 +30,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "venue_id")
     )
-    @JsonBackReference
+    @JsonBackReference(value = "venues-liked-movement")
     private Set<Venue> venuesLiked = new HashSet<>();
 
     @OneToMany (mappedBy = "event")

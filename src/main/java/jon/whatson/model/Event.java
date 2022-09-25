@@ -14,13 +14,15 @@ import java.util.List;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "event_id")
     private Long id;
+    @Column(name= "event_venue")
     private String venue;
     private Timestamp timestamp;
 
 
     @ManyToOne // allows you to map FK in the child entity so it can reference its parent entity
-    @JsonBackReference
+    @JsonBackReference(value = "band-movement")
     private Band band;
 
     @OneToMany (mappedBy = "event")
